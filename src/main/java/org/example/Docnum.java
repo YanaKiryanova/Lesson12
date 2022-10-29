@@ -38,7 +38,7 @@ public class Docnum {
             List<String> allStrings = Files.readAllLines(strFile);
             for (int i = 0; i < allStrings.size(); i++){
                 String one = allStrings.get(i);
-                if (one.length() == 15 && one.startsWith("docnum")|| one.startsWith("contract") ){
+                if (one.length() == 15 && one.startsWith("docnum")|| one.length() == 15 && one.startsWith("contract") ){
                     val(one, otchet);
                 }else{
                     val(one, otchetError);
