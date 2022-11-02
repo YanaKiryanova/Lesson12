@@ -8,51 +8,39 @@ public class Docnum {
     private File otchet;
     private File otchetError;
 
-    public Docnum(File file, File otchet, File otchetError){
+    public Docnum(File file, File otchet, File otchetError) {
         this.file = file;
         this.otchet = otchet;
         this.otchetError = otchetError;
 
     }
-    public Set<String> set (File file)  {
-        Set <String> strSet = new HashSet<>();
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
-           String line;
-           while ((line = bufferedReader.readLine()) != null){
-               strSet.add(line);
-           }
+
+    public Set<String> set(File file) {
+        Set<String> strSet = new HashSet<>();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                strSet.add(line);
+            }
         } catch (IOException e) {
             System.out.println("Ошибка файла");
         }
         return strSet;
     }
 
- /*   public void readFile () {
-        try{
-            Path strFile = Path.of(file.toURI());
-            List<String> allStrings = Files.readAllLines(strFile);
-            for (String numDoc : allStrings){
-                System.out.println(numDoc);
-            }
-        }catch (IOException e){
-            System.out.println("Файл не найден");
-        }finally {
-            System.out.println("Работа окончена");
-        }
-    }*/
-    public Map<String, String> map (File file, File otchet, File otchetError){
+    public Map<String, String> map(File file, File otchet, File otchetError) {
         String commentTrue = "верный номер контракта";
         String commentLenght = "неверная длина контракта";
         String commentName = "неверное имя контракта";
-        Set <String> set = set(file);
-        Map<String,String> map = new HashMap<>();
-        for (String elem : set){
-            if (elem.length() == 15 && elem.startsWith("docnum") || elem.length() == 15 && elem.startsWith("contract")){
+        Set<String> set = set(file);
+        Map<String, String> map = new HashMap<>();
+        for (String elem : set) {
+            if (elem.length() == 15 && elem.startsWith("docnum") || elem.length() == 15 && elem.startsWith("contract")) {
                 map.put(elem, commentTrue);
             } else if (elem.length() != 15) {
-                map.put(elem,commentLenght );
-            }else{
-                map.put(elem,commentName);
+                map.put(elem, commentLenght);
+            } else {
+                map.put(elem, commentName);
             }
         }
         for (Map.Entry<String, String> elem : map.entrySet()) {
@@ -66,14 +54,13 @@ public class Docnum {
         return map;
     }
 
-    public void val (String str ,String strin, File file){
-        try (FileOutputStream fileOutputStream = new FileOutputStream(file,true);PrintWriter pw = new PrintWriter(fileOutputStream)){
-            pw.println(str +" - "+ strin);
-        }catch (IOException e){
+    public void val(String str, String strin, File file) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file, true); PrintWriter pw = new PrintWriter(fileOutputStream)) {
+            pw.println(str + " - " + strin);
+        } catch (IOException e) {
             System.out.println("Файл для записи не найден");
         }
     }
-
 
 
 }
